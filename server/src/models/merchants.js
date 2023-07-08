@@ -11,8 +11,10 @@ const merchantSchema = new mongoose.Schema({
   contact: {
     name: { type: String, required: true },
     phone: { type: String, required: true },
+    email: { type: String, required: true },
   },
   accountUUID: { type: String, required: true, unique: true },
+  status: { type: String, required: true },
 }, {
   collection: 'merchants'
 });
