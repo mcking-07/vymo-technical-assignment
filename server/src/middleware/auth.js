@@ -4,17 +4,17 @@ const { logger } = require('../utils/logger');
 const auth = async (req, res, next) => {
   try {
     const accountUUID = req.header('accountUUID');
-    const user = await Users.findOne({ accountUUID });
+    const user = await Users.findOne({ accountUUID }).lean();
     if (!user) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.json({ error: 'Unauthorized' });
     }
     req.user = user;
     req.accountUUID = accountUUID;
-    // * add user authenticated logs
+    logger.info(`[${accountUUID}] accessing [${req.url}] with [${req.method}] authorized.`)
     next();
   } catch (error) {
     logger.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.json({ error: 'Internal Server Error' });
   }
 };
 

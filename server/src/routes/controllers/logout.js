@@ -1,5 +1,8 @@
+const { logger } = require("../../utils/logger");
+
 const logout = (req, res) => {
-  // * logged out logger here
+  const { accountUUID } = req;
+  logger.info(`[${accountUUID}] logged out successfully.`)
   res.json({ success: true, message: 'Logout Successful' });
 };
 
